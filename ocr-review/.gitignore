@@ -1,0 +1,13 @@
+node_modules/
+tests/.tmp/
+tests/output/
+# Ảnh chụp tự kiểm tra: chỉ giữ một số ảnh tiêu biểu trong repo
+docs/screenshots/*
+!docs/screenshots/form-1920x1080-light.png
+!docs/screenshots/form-1920x1080-dark.png
+!docs/screenshots/form-1280x720-light.png
+!docs/screenshots/form-1280x720-dark.png
+!docs/screenshots/pdf-1920x1080-light.png
+!docs/screenshots/diff-side-1920x1080-dark.png
+!docs/screenshots/report-1280x720-light.png
+!docs/screenshots/generic-cccd-fallback-1600x900.png

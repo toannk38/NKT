@@ -1,0 +1,15 @@
+{
+  "name": "ocr-review",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Công cụ duyệt/chấm kết quả OCR chạy offline trong một file HTML",
+  "scripts": {
+    "build": "node build.js",
+    "test-data": "node scripts/make-test-data.js",
+    "test": "node build.js && node --test --test-reporter=spec tests/app.test.js",
+    "screenshots": "node tests/screenshots.js"
+  },
+  "devDependencies": {
+    "pdfjs-dist": "3.11.174"
+  }
+}

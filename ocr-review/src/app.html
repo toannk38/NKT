@@ -1,0 +1,149 @@
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light dark">
+<title>{{TITLE}}</title>
+<style>
+{{CSS}}
+</style>
+</head>
+<body>
+<header class="app-header">
+  <button id="btn-sidebar" class="icon-btn" data-icon="sidebar" title="Ẩn/hiện danh sách hồ sơ"></button>
+  <div class="brand"><span class="logo">OCR Review</span><span class="profile-badge" id="profile-badge"></span></div>
+  <div class="hgroup">
+    <button id="btn-open" data-icon="folder">Mở thư mục</button>
+    <button id="btn-reopen" data-icon="history" hidden>Mở lại: <b id="reopen-name"></b></button>
+  </div>
+  <div class="doc-title" id="doc-title"></div>
+  <div class="spacer"></div>
+  <label class="reviewer" title="Tên người duyệt được lưu vào file kết quả">
+    <span>Người duyệt</span>
+    <input id="reviewer" placeholder="Nhập tên…" autocomplete="name" spellcheck="false">
+  </label>
+  <div class="hgroup">
+    <button id="btn-save" class="primary" data-icon="save" title="Lưu (Ctrl+S)">Lưu</button>
+    <button id="btn-save-next" data-icon="next" title="Lưu & sang hồ sơ tiếp (Ctrl+Enter)">Lưu &amp; tiếp</button>
+  </div>
+  <button id="btn-report" data-icon="chart" title="Báo cáo tổng hợp">Báo cáo</button>
+  <button id="btn-layout" class="icon-btn" data-icon="columns" title="Đổi bố cục trái-phải / trên-dưới"></button>
+  <button id="btn-theme" class="icon-btn" data-icon="theme" title="Giao diện: tự động / sáng / tối"></button>
+  <div class="menu-wrap">
+    <button id="btn-settings" class="icon-btn" data-icon="settings" title="Cài đặt"></button>
+    <div class="menu" id="settings-menu" hidden>
+      <label class="menu-item"><input type="checkbox" id="opt-save-updated"> Lưu thêm file <code>.updated.json</code> (chỉ dữ liệu)</label>
+      <label class="menu-item"><input type="checkbox" id="opt-validate"> Hiện cảnh báo kiểm tra định dạng</label>
+      <div class="menu-sep"></div>
+      <button class="menu-item" id="opt-load-labels">Nạp bảng nhãn tuỳ chỉnh (.json)…</button>
+      <button class="menu-item" id="opt-clear-labels">Xoá bảng nhãn tuỳ chỉnh</button>
+      <button class="menu-item" id="opt-export-labels">Tải bảng nhãn hiện tại (.json)</button>
+      <div class="menu-sep"></div>
+      <button class="menu-item" id="opt-reset-ui">Đặt lại bố cục &amp; tuỳ chọn giao diện</button>
+      <div class="menu-sep"></div>
+      <div class="menu-note" id="opt-info"></div>
+    </div>
+  </div>
+  <button id="btn-help" class="icon-btn" title="Phím tắt (?)">?</button>
+</header>
+
+<div id="banner" class="banner" hidden></div>
+
+<main class="app-main">
+  <aside id="sidebar">
+    <div class="sb-tools">
+      <input type="search" id="sb-search" placeholder="Tìm hồ sơ…" spellcheck="false">
+      <div class="seg" id="sb-filter">
+        <button data-v="all" class="on">Tất cả</button>
+        <button data-v="unreviewed">Chưa duyệt</button>
+        <button data-v="saved">Đã lưu</button>
+        <button data-v="wrong">Có trường sai</button>
+      </div>
+      <div class="sb-count" id="sb-count"></div>
+    </div>
+    <ul id="doc-list" class="doc-list" role="listbox" aria-label="Danh sách hồ sơ"></ul>
+  </aside>
+
+  <section id="workspace" class="workspace split-h" hidden>
+    <div id="pane-viewer" class="pane pane-viewer">
+      <div class="toolbar vtools">
+        <button class="icon-btn" id="v-zoom-out" data-icon="minus" title="Thu nhỏ"></button>
+        <input id="v-zoom" class="zoom-input" value="100%" title="Mức zoom (Enter để áp dụng)" spellcheck="false">
+        <button class="icon-btn" id="v-zoom-in" data-icon="plus" title="Phóng to"></button>
+        <span class="tsep"></span>
+        <button id="v-fit-width" title="Vừa chiều rộng">Vừa rộng</button>
+        <button id="v-fit-page" title="Vừa trang">Vừa trang</button>
+        <button id="v-100" title="Kích thước thật">100%</button>
+        <button class="icon-btn" id="v-rotate" data-icon="rotate" title="Xoay 90°"></button>
+        <span class="tsep"></span>
+        <span class="pager" id="v-pager" hidden>
+          <button class="icon-btn" id="v-prev" data-icon="up" title="Trang trước"></button>
+          <span id="v-page">1 / 1</span>
+          <button class="icon-btn" id="v-next" data-icon="down" title="Trang sau"></button>
+        </span>
+        <span class="spacer"></span>
+        <span class="v-file" id="v-file"></span>
+      </div>
+      <div class="vscroll" id="vscroll" tabindex="0">
+        <div class="vcontent" id="vcontent"></div>
+      </div>
+    </div>
+    <div id="gutter" class="gutter" title="Kéo để đổi kích thước, nhấp đúp để đặt lại"></div>
+    <div id="pane-json" class="pane pane-json">
+      <div class="tabs" role="tablist">
+        <button class="tab on" data-tab="form">Form</button>
+        <button class="tab" data-tab="raw">Raw</button>
+        <button class="tab" data-tab="diff">Đối chiếu <span class="tab-count" id="diff-count"></span></button>
+        <span class="spacer"></span>
+        <span class="dirty-flag" id="dirty-flag" hidden>● Chưa lưu</span>
+        <span class="saved-info" id="saved-info"></span>
+      </div>
+      <div class="tabpanes">
+        <div class="tabpane on" id="tab-form"></div>
+        <div class="tabpane" id="tab-raw"></div>
+        <div class="tabpane" id="tab-diff"></div>
+      </div>
+      <div class="statsbar" id="statsbar"></div>
+    </div>
+  </section>
+
+  <section id="empty-state" class="empty-state">
+    <div class="empty-card">
+      <h1 id="empty-title">Duyệt kết quả OCR</h1>
+      <p class="muted" id="empty-sub"></p>
+      <div class="drop-zone" id="drop-zone">
+        <div class="dz-icon" data-icon="folder"></div>
+        <div><b>Kéo-thả thư mục gốc vào đây</b> hoặc</div>
+        <div class="dz-actions">
+          <button class="primary" id="es-open" data-icon="folder">Chọn thư mục…</button>
+          <button id="es-reopen" data-icon="history" hidden>Mở lại thư mục gần nhất</button>
+        </div>
+      </div>
+      <div class="es-help">
+        <p><b>Cấu trúc thư mục:</b> mỗi thư mục con là một hồ sơ, gồm 1 file tài liệu (<code>.pdf</code>, <code>.png</code>, <code>.jpg</code>, <code>.webp</code>, <code>.bmp</code>, <code>.gif</code>) và 1 file <code>.json</code> kết quả OCR.</p>
+        <pre>thu_muc_goc/
+├── ho_so_1/  giay_to.pdf   giay_to.json
+├── ho_so_2/  anh.png       anh.json
+└── …</pre>
+        <p>Kết quả duyệt được ghi thành <code>&lt;tên-json&gt;.reviewed.json</code> ngay trong thư mục hồ sơ. File JSON gốc không bao giờ bị ghi đè.</p>
+      </div>
+    </div>
+  </section>
+</main>
+
+<input type="file" id="dir-input" webkitdirectory directory multiple hidden>
+<input type="file" id="labels-input" accept=".json,application/json" hidden>
+<div id="toasts" class="toasts" aria-live="polite"></div>
+<div id="drop-overlay" class="drop-overlay" hidden><div>Thả thư mục vào đây để mở</div></div>
+
+{{PDFJS}}
+{{PDFJS_WORKER}}
+<script>
+'use strict';
+(function () {
+{{APP}}
+})();
+</script>
+</body>
+</html>

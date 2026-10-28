@@ -1,0 +1,92 @@
+{
+  "data": {
+    "ma_so_doanh_nghiep": "4400999827",
+    "ten_cong_ty": {
+      "tieng_viet": "CÔNG TY TNHH THƯƠNG MẠI DỊCH VỤ MINH TÂM PHÚ YÊN",
+      "tieng_nuoc_ngoai": "MINH TAM PHU YEN TRADING SERVICE COMPANY LIMITED",
+      "viet_tat": "MINH TAM PY CO., LTD"
+    },
+    "tru_so_chinh": {
+      "dia_chi": "Số 128 Nguyễn Công Trí, Phường 6, Thành phố Tuy Hòa, Tỉnh Phú Yên, Việt Nam",
+      "dien_thoai": "0257 3828 456",
+      "fax": "",
+      "email": "minhtampy@example.vn",
+      "website": ""
+    },
+    "von_dieu_le": {
+      "so_tien": "10.000.000.000 đồng"
+    },
+    "thanh_vien": [
+      {
+        "ho_ten": "ĐOÀN THỊ MỸ TÌNH",
+        "quoc_tich": "Việt Nam",
+        "phan_gop_von": "6.000.000.000",
+        "ty_le": "60",
+        "so_giay_to": "054186001234",
+        "ghi_chu": "",
+        "gioi_tinh": "Nữ",
+        "ngay_sinh": "12/05/1986",
+        "dan_toc": "Kinh",
+        "loai_giay_to": "Thẻ căn cước công dân",
+        "ngay_cap": "20/O4/2021",
+        "noi_cap": "Cục Cảnh sát quản lý hành chính về trật tự xã hội",
+        "dia_chi_thuong_tru": "Số 45 Lê Thánh Tôn, Phường 7, Thành phố Tuy Hòa, Tỉnh Phú Yên, Việt Nam",
+        "dia_chi_lien_lac": "Số 45 Lê Thánh Tôn, Phường 7, Thành phố Tuy Hòa, Tỉnh Phú Yên, Việt Nam"
+      },
+      {
+        "ho_ten": "NGUYỄN VĂN HẢI",
+        "quoc_tich": "Việt Nam",
+        "phan_gop_von": "4.000.000.000",
+        "ty_le": "40",
+        "so_giay_to": "054082009876",
+        "ghi_chu": "",
+        "gioi_tinh": "Nam",
+        "ngay_sinh": "03/11/1982",
+        "dan_toc": "Kinh",
+        "loai_giay_to": "Thẻ căn cước công dân",
+        "ngay_cap": "15/08/2021",
+        "noi_cap": "Cục Cảnh sát quản lý hành chính về trật tự xã hội",
+        "dia_chi_thuong_tru": "Thôn Phú Lương, Xã Hòa An, Huyện Phú Hòa, Tỉnh Phú Yên, Việt Nam",
+        "dia_chi_lien_lac": "Số 128 Nguyễn Công Trí, Phường 6, Thành phố Tuy Hòa, Tỉnh Phú Yên, Việt Nam"
+      }
+    ],
+    "nguoi_dai_dien_theo_phap_luat": [
+      {
+        "ho_ten": "DOÀN THỊ MỸ TÌNH",
+        "gioi_tinh": "Nữ",
+        "chuc_danh": "Giám đôc",
+        "ngay_sinh": "12/05/1986",
+        "dan_toc": "Kinh",
+        "quoc_tich": "Việt Nam",
+        "loai_giay_to": "Thẻ căn cước công dân",
+        "so_giay_to": "054186001234",
+        "ngay_cap": "20/04/2021",
+        "noi_cap": "Cục Cảnh sát quản lý hành chính về trật tự xã hội",
+        "dia_chi_thuong_tru": "Số 45 Lê Thánh Tôn, Phường 7, Thành phố Tuy Hòa, Tỉnh Phú Yên, Việt Nam",
+        "dia_chi_lien_lac": "Số 45 Lê Thánh Tôn, Phường 7, Thành phố Tuy Hòa, Tỉnh Phú Yên, Việt Nam"
+      }
+    ]
+  },
+  "review": {
+    "tool": "ocr-review v1",
+    "folder": "hs8_da_duyet",
+    "source_json": "gpkd.json",
+    "source_file": "gpkd.png",
+    "reviewer": "Người duyệt mẫu",
+    "reviewed_at": "2024-05-02T09:15:00+07:00",
+    "summary": {},
+    "field_status": {
+      "thanh_vien[0].ho_ten": "wrong",
+      "ma_so_doanh_nghiep": "correct"
+    },
+    "changes": [
+      {
+        "path": "thanh_vien[0].ho_ten",
+        "type": "modified",
+        "original": "DOÀN THỊ MỸ TÌNH",
+        "updated": "ĐOÀN THỊ MỸ TÌNH"
+      }
+    ],
+    "note": "Đã duyệt một phần"
+  }
+}
